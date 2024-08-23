@@ -96,7 +96,7 @@ trigger:
     attribute: color_temp
 
 condition:
-  condition: and
+  and:
     - condition: template
       value_template: "{{ trigger.to_state.context.id != this.context.id }}"
     - condition: state
