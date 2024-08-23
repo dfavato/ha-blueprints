@@ -90,6 +90,11 @@ trigger:
     id: set_brightness
     entity_id: !input linked_entity
     attribute: brightness
+    not_to:
+      - "unavailable"
+      - ""
+      - null
+      - 0
   - platform: state
     id: set_color_temp
     entity_id: !input linked_entity
