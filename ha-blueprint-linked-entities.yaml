@@ -98,6 +98,8 @@ trigger:
 condition:
   - condition: template
     value_template: "{{ trigger.to_state.context.id != this.context.id }}"
+  - condition: template
+    value_template: "{{ trigger.to_state.state != 'unavailable' }}"
 
 action:
   - choose:
@@ -134,8 +136,6 @@ action:
       - conditions:
           - condition: trigger
             id: set_brightness
-          - condition: template
-            value_template: "{{ isinstance(trigger.to_state.attributes.brightness, (float, int)) }}"
         sequence:
           - variables:
               set_light_brightness: "{{ trigger.to_state.attributes.brightness }}"
