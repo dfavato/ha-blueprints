@@ -90,19 +90,18 @@ trigger:
     id: set_brightness
     entity_id: !input linked_entity
     attribute: brightness
-    not_to:
-      - "unavailable"
-      - ""
-      - null
-      - 0
   - platform: state
     id: set_color_temp
     entity_id: !input linked_entity
     attribute: color_temp
 
 condition:
-  - condition: template
-    value_template: "{{ trigger.to_state.context.id != this.context.id }}"
+  condition: and
+    - condition: template
+      value_template: "{{ trigger.to_state.context.id != this.context.id }}"
+    - condition: state
+      entity_id: !input linked_entity
+      state: unavailable
 
 action:
   - choose:
